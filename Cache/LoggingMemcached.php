@@ -273,7 +273,10 @@ class LoggingMemcached implements LoggingMemcachedInterface
 			$start          = microtime( true );
 			$result         = call_user_func_array( array( $this->memcached, $name ), $arguments );
 			$time           = microtime( true ) - $start;
-			$this->calls[ ] = (object)compact( 'start', 'time', 'name', 'arguments', 'result' );
+			
+			$call           = (object)compact( 'start', 'time', 'name', 'hit' );
+			$call->hit      = $result !== false;
+			$this->calls[]  = $call;
 		} else {
 			$result = call_user_func_array( array( $this->memcached, $name ), $arguments );
 		}

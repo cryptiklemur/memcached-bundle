@@ -135,7 +135,7 @@ class MemcachedDataCollector extends DataCollector
 				$statistics[ $name ][ 'time' ] += $call->time;
 				if ( $call->name == 'get' ) {
 					$statistics[ $name ][ 'reads' ] += 1;
-					if ( $call->result !== false ) {
+					if ( $call->hit !== false ) {
 						$statistics[ $name ][ 'hits' ] += 1;
 					} else {
 						$statistics[ $name ][ 'misses' ] += 1;
