@@ -118,8 +118,29 @@ class MemcachedProvider extends CacheProvider
 	 */
 	protected function doGetStats()
 	{
-		$stats = $this->memcached->getStats();
+		$servers = $this->memcached->getStats();
+		$data = array(
+			Cache::STATS_HITS              => 0,
+			Cache::STATS_MISSES            => 0,
+			Cache::STATS_UPTIME            => 0,
+			Cache::STATS_MEMORY_USAGE      => 0,
+			Cache::STATS_MEMORY_AVAILIABLE => 0,
+		);
 
+		foreach( $servers as $server ) {
+			$stats = $this->getServerStats( $server );
+			$data[ Cache::STATS_HITS ] += $stats[ Cache::STATS_HITS ];
+			$data[ Cache::STATS_MISSES ] += $stats[ Cache::STATS_MISSES ];
+			$data[ Cache::STATS_MEMORY_USAGE ] += $stats[ Cache::STATS_MEMORY_USAGE ];
+			$data[ Cache::STATS_MEMORY_AVAILIABLE ] += $stats[ Cache::STATS_MEMORY_AVAILIABLE ];
+			if( $data[ Cache::STATS_UPTIME ] < $stats[ Cache::STATS_UPTIME ] )
+				$data[ Cache::STATS_UPTIME ] = $stats[ Cache::STATS_UPTIME ];
+		}
+		return $data;
+	}
+
+	protected function getServerStats( $stats )
+	{
 		return array(
 			Cache::STATS_HITS              => $stats[ 'get_hits' ],
 			Cache::STATS_MISSES            => $stats[ 'get_misses' ],

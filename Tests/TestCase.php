@@ -41,7 +41,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
 		$loader->load(
 			array(
 				array(
-					'enabled' => true,
 					'clusters' => array(
 						'default' => array(
 							'hosts' => array(
