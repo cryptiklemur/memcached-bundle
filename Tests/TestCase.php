@@ -9,7 +9,7 @@ namespace Aequasi\Bundle\MemcachedBundle\Tests;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 
-use Aequasi\Bundle\MemcachedBundle\DependencyInjection\MemcachedExtension;
+use Aequasi\Bundle\MemcachedBundle\DependencyInjection\AequasiMemcachedExtension;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
@@ -36,7 +36,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 			'kernel.root_dir'    => __DIR__ . '/../../../../' // src dir
 		) ) );
 		$container->set( 'annotation_reader', new AnnotationReader() );
-		$loader = new MemcachedExtension();
+		$loader = new AequasiMemcachedExtension();
 		$container->registerExtension( $loader );
 		$loader->load(
 			array(

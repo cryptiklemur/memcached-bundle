@@ -1,5 +1,5 @@
 parameters:
-    memcached.doctrine_cache.class: Aequasi\Bundle\MemcachedBundle\Doctrine\Cache\MemcachedProvider
+    memcached.doctrine_cache.class: Aequasi\Bundle\MemcachedBundle\Doctrine\MemcachedProvider
     memcached.session_handler.class: Aequasi\Bundle\MemcachedBundle\Session\MemcachedSessionHandler
     memcached.default_options:
         compression: true
