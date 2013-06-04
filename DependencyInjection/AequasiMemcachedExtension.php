@@ -82,7 +82,7 @@ class AequasiMemcachedExtension extends Extension
 				if ( $cache[ 'prefix' ] ) {
 					$definition->addMethodCall( 'setPrefix', array( $cache[ 'prefix' ] ) );
 				}
-				$container->setDefinition( sprintf( 'doctrine.orm.%s_%s', $em, $name ), $definition );
+				$container->setDefinition( sprintf( 'doctrine.orm.%s_%s_cache', $em, $name ), $definition );
 			}
 			foreach ( $cache[ 'document_managers' ] as $dm ) {
 				$definition = new Definition( $container->getParameter( 'memcached.doctrine_cache.class' ) );
@@ -91,7 +91,7 @@ class AequasiMemcachedExtension extends Extension
 				if ( $cache[ 'prefix' ] ) {
 					$definition->addMethodCall( 'setPrefix', array( $cache[ 'prefix' ] ) );
 				}
-				$container->setDefinition( sprintf( 'doctrine.odm.mongodb.%s_%s', $dm, $name ), $definition );
+				$container->setDefinition( sprintf( 'doctrine.odm.mongodb.%s_%s_cache', $dm, $name ), $definition );
 			}
 		}
 	}

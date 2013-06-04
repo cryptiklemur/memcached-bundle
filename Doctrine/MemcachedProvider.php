@@ -6,7 +6,7 @@
  */
 namespace Aequasi\Bundle\MemcachedBundle\Doctrine;
 
-use \Memcached;
+use \Aequasi\Bundle\MemcachedBundle\Cache\LoggingMemcachedInterface as Memcached;
 
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\CacheProvider;
