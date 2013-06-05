@@ -277,7 +277,7 @@ class LoggingMemcached implements LoggingMemcachedInterface
 
 			// Removing poissible bad values from the data collector
 			if( in_array( $name, array( 'get', 'getByKey', 'getDelayed', 'getDelayedByKey', 'getMulti', 'getMultiByKey' ) ) ) {
-				$call->result = $resuly !== false;
+				$call->result = $result !== false;
 			}
 			if( in_array( $name, array( 'set', ',setByKey', 'setMulti', 'setMultiByKey' ) ) ) {
 				$call->arguments = array( $call->arguments[ 0 ] );
