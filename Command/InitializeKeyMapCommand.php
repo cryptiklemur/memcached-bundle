@@ -31,7 +31,7 @@ class InitializeKeyMapCommand extends ContainerAwareCommand
 		$this
 			->setName( 'memcached:initialize:keymap' )
 			->setDescription( 'Initialize the Memcached Mysql Key Map' )
-			->addArgument( 'cluster', InputArgument::REQUIRED, 'What cluster do you want to use' );
+			->addArgument( 'cluster', InputArgument::REQUIRED, 'What cluster do you want to use' )
 			->add( 'debug', InputOption::VALUE_NONE, 'Debug Mode' );
 	}
 
