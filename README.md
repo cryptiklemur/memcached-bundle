@@ -38,7 +38,7 @@ $bundles(
 Then add parameters (probably in config.yml) for your servers, and options
 
 ```yml
-memcached:
+aequasi_memcached:
     clusters:
         default:
           - { host: localhost, port: 11211 }
@@ -57,7 +57,7 @@ This bundle allows you to use its services for Doctrine's caching methods of met
 If you want doctrine to use this as the result and query cache, add this
 
 ```yml
-memcached:
+aequasi_memcached:
     doctrine:
         metadata:
             cluster: default
@@ -77,7 +77,7 @@ memcached:
 This bundle even allows you to store your session data in one of your memcache clusters. To enable:
 
 ```yml
-memcached:
+aequasi_memcached:
     session:
         cluster: default
         prefix: "session_"
