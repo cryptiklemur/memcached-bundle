@@ -81,6 +81,11 @@ class LoggingMemcached implements LoggingMemcachedInterface
 	 * @var \Memcached
 	 */
 	protected $memcached;
+	
+	/**
+	 * @var bool
+	 */
+	protected $persistent = false;
 
 	/**
 	 * Constructor instantiates and stores Memcached object
@@ -97,10 +102,26 @@ class LoggingMemcached implements LoggingMemcachedInterface
 		if ( $persistentId ) {
 			$this->memcached  = new \Memcached( $persistentId );
 			$this->initialize = count( $this->getServerList() ) == 0;
+			$this->persistent = true;
 		} else {
 			$this->memcached  = new \Memcached();
 			$this->initialize = true;
 		}
+	}
+
+	/**
+	 * Adds servers to the pool. If persistent, check count of current server list 
+	 *
+	 * @param array $serverList List of servers
+	 *
+	 * @return bool
+	 */	
+	public function addServers( array $serverList )
+	{
+		if( $this->persistent && sizeof( $this->getServerList() ) > 0 )
+			return false;
+
+		return $this->processRequest( 'addServers', array( $serverList ) );
 	}
 
 	/**
