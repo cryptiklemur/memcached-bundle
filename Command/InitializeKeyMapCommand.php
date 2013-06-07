@@ -66,7 +66,7 @@ INDEX (`insert_date`)
 SQL;
 			
 			$output->writeln( "Attempting to create `memcached_key_map` table" );
-			
+			$output->writeln( $sql );
 			$connection->executeQuery( $sql );
 
 		} catch( ServiceNotFoundException $e ) {
