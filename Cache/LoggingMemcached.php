@@ -347,8 +347,11 @@ class LoggingMemcached implements LoggingMemcachedInterface
 		if ( $lifeTime === null ) {
 			unset( $data[ 'lifeTime' ], $data[ 'expiration' ] );
 		}
-
-		return $this->getKeyMapConnection()->insert( 'memcached_key_map', $data );
+		try {
+			return $this->getKeyMapConnection()->insert( 'memcached_key_map', $data );
+		} catch( \Exception $e ) {
+			error_log( "Could not write to `memcached_key_map`." );
+		}
 	}
 
 	/**
