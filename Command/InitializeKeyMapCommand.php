@@ -32,6 +32,7 @@ class InitializeKeyMapCommand extends ContainerAwareCommand
 			->setName( 'memcached:initialize:keymap' )
 			->setDescription( 'Initialize the Memcached Mysql Key Map' )
 			->addArgument( 'cluster', InputArgument::REQUIRED, 'What cluster do you want to use' );
+			->add( 'debug', InputOption::VALUE_NONE, 'Debug Mode' );
 	}
 
 
@@ -64,6 +65,12 @@ INDEX (`expiration`),
 INDEX (`insert_date`)
 ) ENGINE=INNODB;
 SQL;
+			
+			$output->writeln( "Attempting to create `memcached_key_map` table" );
+
+			if( $input->getOption( 'debug' ) ) {
+				$output->writeln( '<info>' . $sql . '</info>' );
+			}
 
 			$connection->executeQuery( $sql );
 
