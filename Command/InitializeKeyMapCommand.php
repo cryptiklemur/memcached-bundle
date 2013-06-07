@@ -31,8 +31,7 @@ class InitializeKeyMapCommand extends ContainerAwareCommand
 		$this
 			->setName( 'memcached:initialize:keymap' )
 			->setDescription( 'Initialize the Memcached Mysql Key Map' )
-			->addArgument( 'cluster', InputArgument::REQUIRED, 'What cluster do you want to use' )
-			->addOption( 'debug', InputOption::VALUE_NONE, 'Debug Mode' );
+			->addArgument( 'cluster', InputArgument::REQUIRED, 'What cluster do you want to use' );
 	}
 
 
@@ -67,11 +66,7 @@ INDEX (`insert_date`)
 SQL;
 			
 			$output->writeln( "Attempting to create `memcached_key_map` table" );
-
-			if( $input->getOption( 'debug' ) ) {
-				$output->writeln( '<info>' . $sql . '</info>' );
-			}
-
+			
 			$connection->executeQuery( $sql );
 
 		} catch( ServiceNotFoundException $e ) {
