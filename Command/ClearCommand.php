@@ -30,7 +30,7 @@ class ClearCommand extends ContainerAwareCommand
 			->setName( 'memcached:clear' )
 			->setDescription( 'Invalidate all Memcached items for this app (requires use of prefix)' )
 			->addArgument( 'cluster', InputArgument::REQUIRED, 'What cluster do you want to use?' )
-			->addOption( 'clearAll', InputOption::VALUE_NONE, 'Do you want to clear the entire cluster?' );
+			->addOption( 'clearAll', null, InputOption::VALUE_NONE, 'Do you want to clear the entire cluster?' );
 	}
 
 
