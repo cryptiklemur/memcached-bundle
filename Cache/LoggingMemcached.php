@@ -88,6 +88,11 @@ class LoggingMemcached implements LoggingMemcachedInterface
 	protected $persistent = false;
 
 	/**
+	 * @var string
+	 */
+	protected $prefix = null;
+
+	/**
 	 * Constructor instantiates and stores Memcached object
 	 *
 	 * @param bool $enabled      Are we caching?
@@ -289,6 +294,10 @@ class LoggingMemcached implements LoggingMemcachedInterface
 	 */
 	protected function processRequest( $name, $arguments )
 	{
+		$usePrefix = array( 'get', 'getByKey', 'getDelayed', 'getDelayedByKey', 'getMulti', 'getMultiByKey', 'set', ',setByKey', 'setMulti', 'setMultiByKey' );
+		if( $this->hasPrefix() && in_array( $name, $usePrefix ) ) {
+			$arguments[ 0 ] = $this->getPrefix() . '_' . $arguments[ 0 ];
+		}
 
 		if ( $this->logging ) {
 			$start          = microtime( true );
@@ -412,5 +421,35 @@ class LoggingMemcached implements LoggingMemcachedInterface
 		$data         = unserialize( serialize( $data ) );
 
 		return memory_get_usage() - $start_memory - PHP_INT_SIZE * 8;
+	}
+
+	/**
+	 * Sets the prefix for this client
+	 *
+	 * @param string $prefix Prefix to use for this client
+	 *
+	 * @return LoggingMemcached
+	 */
+	public function setPrefix( $prefix )
+	{
+		$this->prefix = $prefix;
+
+		return $this;
+	}
+
+	/**
+	 * @return string Returns the prefix
+	 */
+	public function getPrefix( )
+	{
+		return $this->prefix;
+	}
+
+	/**
+	 * @return bool Returns whether or not $this->prefix is empty()
+	 */
+	public function hasPrefix()
+	{
+		return !empty( $this->prefix );
 	}
 }
