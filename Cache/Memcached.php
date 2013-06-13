@@ -336,6 +336,8 @@ class Memcached
 			return false;
 		}
 
+		$id = $this->getNamespacedId( $id );
+
 		$data = array(
 				'cache_key'   => $id,
 				'memory_size' => $this->getPayloadSize( $data ),
@@ -358,11 +360,13 @@ class Memcached
 		}
 	}
 
-	public function setKeyMapInfo( $key, $category = null, $description = null )
+	public function setKeyMapInfo( $id, $category = null, $description = null )
 	{
 		if ( !$this->isKeyMapEnabled() ) {
 			return false;
 		}
+		
+		$id = $this->getNamespacedId( $id );
 
 		$data = array();
 		if( null !== $category ) {
@@ -373,7 +377,7 @@ class Memcached
 			$data[ 'description' ] = $description;
 		}
 
-		$this->keyMapInfo[ $key ] = $data;
+		$this->idMapInfo[ $id ] = $data;
 
 		return true;
 	}
@@ -388,6 +392,8 @@ class Memcached
 		if ( !$this->isKeyMapEnabled() ) {
 			return false;
 		}
+		
+		$id = $this->getNamespacedId( $id );
 
 		return $this->getKeyMapConnection()->delete( 'memcached_key_map', array( 'cache_key' => $id ) );
 	}
