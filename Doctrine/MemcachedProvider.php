@@ -26,7 +26,7 @@ class MemcachedProvider extends CacheProvider
 	
 	private function getNamespacedId($id)
 	{
-		return $this->memcached->getNamespacedId( $id );
+		return $id; 
 	}
 
 	/**
