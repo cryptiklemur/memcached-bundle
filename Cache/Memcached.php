@@ -311,7 +311,7 @@ class Memcached
 	 *
 	 * @return bool|int
 	 */
-	private function addToKeyMap( $id, $data, $lifeTime )
+	protected function addToKeyMap( $id, $data, $lifeTime )
 	{
 		if ( !$this->isKeyMapEnabled() ) {
 			return false;
@@ -364,7 +364,7 @@ class Memcached
 	 *
 	 * @return bool|int
 	 */
-	private function deleteFromKeyMap( $id )
+	protected function deleteFromKeyMap( $id )
 	{
 		if ( !$this->isKeyMapEnabled() ) {
 			return false;
@@ -376,7 +376,7 @@ class Memcached
 	/**
 	 * @return bool|int
 	 */
-	private function truncateKeyMap( )
+	protected function truncateKeyMap( )
 	{
 		if ( !$this->isKeyMapEnabled() ) {
 			return false;
@@ -390,7 +390,7 @@ class Memcached
 	 *
 	 * @return mixed
 	 */
-	private function getDataFromPayload( $payload )
+	protected function getDataFromPayload( $payload )
 	{
 		/** @var $payload \Closure|callable|mixed */
 		if ( is_callable( $payload ) ) {
@@ -411,7 +411,7 @@ class Memcached
 	 *
 	 * @return int
 	 */
-	private function getPayloadSize( $data )
+	protected function getPayloadSize( $data )
 	{
 		$start_memory = memory_get_usage();
 		$data         = unserialize( serialize( $data ) );
