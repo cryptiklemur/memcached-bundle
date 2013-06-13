@@ -54,6 +54,8 @@ class InitializeKeyMapCommand extends ContainerAwareCommand
 CREATE TABLE IF NOT EXISTS `memcached_key_map` (
 `id` BIGINT(32) UNSIGNED NOT NULL AUTO_INCREMENT,
 `cache_key` VARCHAR(255) NOT NULL,
+`category` VARCHAR(255),
+`description` VARCHAR(1024),
 `memory_size` BIGINT(32) UNSIGNED,
 `lifeTime` INT(11) UNSIGNED,
 `expiration` DATETIME,
