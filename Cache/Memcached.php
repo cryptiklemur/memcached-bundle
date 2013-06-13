@@ -495,7 +495,7 @@ class Memcached
 	 * @param string $id  The id to namespace
 	 * @return string $id The namespaced id
 	 */
-	private function getNamespacedId($id)
+	protected function getNamespacedId($id)
 	{
 		$namespaceVersion  = $this->getNamespaceVersion();
 
@@ -507,7 +507,7 @@ class Memcached
 	 *
 	 * @return string $namespaceCacheKey
 	 */
-	private function getNamespaceCacheKey()
+	protected function getNamespaceCacheKey()
 	{
 		return sprintf(self::DOCTRINE_NAMESPACE_CACHEKEY, $this->namespace);
 	}
@@ -517,7 +517,7 @@ class Memcached
 	 *
 	 * @return string $namespaceVersion
 	 */
-	private function getNamespaceVersion()
+	protected function getNamespaceVersion()
 	{
 		if (null !== $this->namespaceVersion) {
 			return $this->namespaceVersion;
