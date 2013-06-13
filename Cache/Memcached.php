@@ -524,12 +524,12 @@ class Memcached
 		}
 
 		$namespaceCacheKey = $this->getNamespaceCacheKey();
-		$namespaceVersion = $this->get($namespaceCacheKey);
+		$namespaceVersion = $this->memcached->get($namespaceCacheKey);
 
 		if (false === $namespaceVersion) {
 			$namespaceVersion = 1;
 
-			$this->set($namespaceCacheKey, $namespaceVersion);
+			$this->memcached->set($namespaceCacheKey, $namespaceVersion);
 		}
 
 		$this->namespaceVersion = $namespaceVersion;
