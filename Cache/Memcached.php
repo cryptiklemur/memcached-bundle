@@ -509,7 +509,7 @@ class Memcached
 	 */
 	protected function getNamespaceCacheKey()
 	{
-		return sprintf(self::DOCTRINE_NAMESPACE_CACHEKEY, $this->namespace);
+		return sprintf(self::NAMESPACE_CACHEKEY, $this->namespace);
 	}
 
 	/**
