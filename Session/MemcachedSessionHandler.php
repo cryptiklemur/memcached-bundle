@@ -7,7 +7,7 @@
 
 namespace Aequasi\Bundle\MemcachedBundle\Session;
 
-use Aequasi\Bundle\MemcachedBundle\Cache\LoggingMemcachedInterface as Memcached;
+use Aequasi\Bundle\MemcachedBundle\Cache\Memcached;
 
 /**
  * MemcachedSessionHandler.
@@ -41,7 +41,7 @@ class MemcachedSessionHandler implements \SessionHandlerInterface
 	 *  * prefix: The prefix to use for the memcached keys in order to avoid collision
 	 *  * expiretime: The time to live in seconds
 	 *
-	 * @param Memcached  $memcached A \Memcached instance
+	 * @param Memcached  $memcached A Memcached instance
 	 * @param array      $options   An associative array of Memcached options
 	 *
 	 * @throws \InvalidArgumentException When unsupported options are passed
@@ -58,7 +58,7 @@ class MemcachedSessionHandler implements \SessionHandlerInterface
 		}
 
 		$this->ttl    = isset( $options[ 'expiretime' ] ) ? (int)$options[ 'expiretime' ] : 86400;
-		$this->prefix = isset( $options[ 'prefix' ] ) ? $options[ 'prefix' ] : 'sf2s';
+		$this->prefix = isset( $options[ 'prefix' ] ) ? $options[ 'prefix' ] : 'sf2s-';
 	}
 
 	/**

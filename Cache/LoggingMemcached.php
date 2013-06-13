@@ -66,9 +66,17 @@ class LoggingMemcached extends Memcached implements LoggingMemcachedInterface
 	 */
 	protected function processRequest( $name, $arguments )
 	{
-		$usePrefix = array( 'get', 'getByKey', 'getDelayed', 'getDelayedByKey', 'getMulti', 'getMultiByKey', 'set', ',setByKey', 'setMulti', 'setMultiByKey' );
-		if( $this->hasPrefix() && in_array( $name, $usePrefix ) ) {
-			$arguments[ 0 ] = $this->getPrefix() . '_' . $arguments[ 0 ];
+		$useId = array( 
+			'add', 'delete', 'deleteByKey', 'deleteMulti', 'deleteMultiByKey',
+			'increment', 'prepend', 'prependByKey', 'replace', 'replaceByKey',
+			'touch', 'touchByKey', 'addByKey', 'append', 'appendByKey',
+			'decrement', 'get', 'getByKey', 'getDelayed', 'getDelayedByKey',
+			'getMulti', 'getMultiByKey', 'set', 'setByKey', 'setMulti',
+			'setMultiByKey'
+		);
+
+		if( in_array( $name, $useId ) ) {
+			$arguments[ 0 ] = $this->getNamespacedId( $arguments[ 0 ] );
 		}
 
 		if ( $this->logging ) {
