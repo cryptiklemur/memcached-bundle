@@ -51,7 +51,7 @@ class InitializeKeyMapCommand extends ContainerAwareCommand
 			$connection = $memcached->getKeyMapConnection();
 
 			$sql = <<<SQL
-CREATE TABLE IF NOT EXISTS `memcached_key_map` (
+CREATE TABLE `memcached_key_map` (
 `id` BIGINT(32) UNSIGNED NOT NULL AUTO_INCREMENT,
 `cache_key` VARCHAR(255) NOT NULL,
 `category` VARCHAR(255),
@@ -68,6 +68,7 @@ INDEX (`insert_date`)
 SQL;
 			
 			$output->writeln( "Attempting to create `memcached_key_map` table" );
+			$connection->executeQuery( "DROP TABLE `memcached_key_map`;" );
 			$connection->executeQuery( $sql );
 
 		} catch( ServiceNotFoundException $e ) {
