@@ -80,18 +80,12 @@ class AequasiMemcachedExtension extends Extension
 				$definition = new Definition( $container->getParameter( 'memcached.doctrine_cache.class' ) );
 				$definition->setScope( ContainerInterface::SCOPE_CONTAINER );
 				$definition->addMethodCall( 'setMemcached', array( $client ) );
-				if ( !empty( $clusterConfig[ 'prefix' ] ) ) {
-					$definition->addMethodCall( 'setPrefix', array( $clusterConfig[ 'prefix' ] ) );
-				}
 				$container->setDefinition( sprintf( 'doctrine.orm.%s_%s_cache', $em, $name ), $definition );
 			}
 			foreach ( $cache[ 'document_managers' ] as $dm ) {
 				$definition = new Definition( $container->getParameter( 'memcached.doctrine_cache.class' ) );
 				$definition->setScope( ContainerInterface::SCOPE_CONTAINER );
 				$definition->addMethodCall( 'setMemcached', array( $client ) );
-				if ( !empty( $clusterConfig[ 'prefix' ] ) ) {
-					$definition->addMethodCall( 'setPrefix', array( $clusterConfig[ 'prefix' ] ) );
-				}
 				$container->setDefinition( sprintf( 'doctrine.odm.mongodb.%s_%s_cache', $dm, $name ), $definition );
 			}
 		}
@@ -199,7 +193,7 @@ class AequasiMemcachedExtension extends Extension
 		$memcached->addMethodCall( 'addServers', array( $servers ) );
 	
 		if( !empty( $config[ 'prefix' ] ) ) {
-			$memcached->addMethodCall( 'setPrefix', $config[ 'prefix' ] );
+			$memcached->addMethodCall( 'setNamespace', $config[ 'prefix' ] );
 		}
 
 		// Get default memcached options

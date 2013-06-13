@@ -14,6 +14,17 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
  */
 class Memcached
 {
+	const NAMESPACE_CACHEKEY = 'NamespaceCacheKey[%s]';
+
+	/**
+	 * @var string The namespace to prefix all cache ids with
+	 */
+	protected $namespace = '';
+
+	/**
+	 * @var string The namespace version
+	 */
+	protected $namespaceVersion;
 
 	/**
 	 * 60 Second Cache
@@ -69,7 +80,7 @@ class Memcached
 	 * @var \Memcached
 	 */
 	protected $memcached;
-	
+
 	/**
 	 * @var bool
 	 */
@@ -282,11 +293,19 @@ class Memcached
 	 */
 	protected function processRequest( $name, $arguments )
 	{
-		$usePrefix = array( 'get', 'getByKey', 'getDelayed', 'getDelayedByKey', 'getMulti', 'getMultiByKey', 'set', ',setByKey', 'setMulti', 'setMultiByKey' );
-		if( $this->hasPrefix() && in_array( $name, $usePrefix ) ) {
-			$arguments[ 0 ] = $this->getPrefix() . '_' . $arguments[ 0 ];
-		}
+		$useId = array( 
+			'add', 'delete', 'deleteByKey', 'deleteMulti', 'deleteMultiByKey',
+			'increment', 'prepend', 'prependByKey', 'replace', 'replaceByKey',
+			'touch', 'touchByKey', 'addByKey', 'append', 'appendByKey',
+			'decrement', 'get', 'getByKey', 'getDelayed', 'getDelayedByKey',
+			'getMulti', 'getMultiByKey', 'set', 'setByKey', 'setMulti',
+			'setMultiByKey'
+		);
 
+		if( in_array( $name, $useId ) ) {
+			$arguments[ 0 ] = $this->getNamespacedId( $arguments[ 0 ] );
+		}
+		
 		$result = call_user_func_array( array( $this->memcached, $name ), $arguments );
 
 		if( in_array( $name, array( 'add', 'set' ) ) ) {
@@ -318,12 +337,12 @@ class Memcached
 		}
 
 		$data = array(
-			'cache_key'   => $id,
-			'memory_size' => $this->getPayloadSize( $data ),
-			'lifeTime'    => $lifeTime,
-			'expiration'  => date( 'Y-m-d H:i:s', strtotime( "now +{$lifeTime} seconds" ) ),
-			'insert_date' => date( 'Y-m-d H:i:s' )
-		);
+				'cache_key'   => $id,
+				'memory_size' => $this->getPayloadSize( $data ),
+				'lifeTime'    => $lifeTime,
+				'expiration'  => date( 'Y-m-d H:i:s', strtotime( "now +{$lifeTime} seconds" ) ),
+				'insert_date' => date( 'Y-m-d H:i:s' )
+			     );
 		if ( $lifeTime === null ) {
 			unset( $data[ 'lifeTime' ], $data[ 'expiration' ] );
 		}
@@ -349,7 +368,7 @@ class Memcached
 		if( null !== $category ) {
 			$data[ 'category' ] = $category;
 		}
-		
+
 		if( null !== $description ) {
 			$data[ 'description' ] = $description;
 		}
@@ -447,5 +466,74 @@ class Memcached
 	public function hasPrefix()
 	{
 		return !empty( $this->prefix );
+	}
+
+	/**
+	 * Set the namespace to prefix all cache ids with.
+	 *
+	 * @param string $namespace
+	 * @return void
+	 */
+	public function setNamespace($namespace)
+	{
+		$this->namespace = (string) $namespace;
+	}
+
+	/**
+	 * Retrieve the namespace that prefixes all cache ids.
+	 *
+	 * @return string
+	 */
+	public function getNamespace()
+	{
+		return $this->namespace;
+	}
+
+	/**
+	 * Prefix the passed id with the configured namespace value
+	 *
+	 * @param string $id  The id to namespace
+	 * @return string $id The namespaced id
+	 */
+	private function getNamespacedId($id)
+	{
+		$namespaceVersion  = $this->getNamespaceVersion();
+
+		return sprintf('%s[%s][%s]', $this->namespace, $id, $namespaceVersion);
+	}
+
+	/**
+	 * Namespace cache key
+	 *
+	 * @return string $namespaceCacheKey
+	 */
+	private function getNamespaceCacheKey()
+	{
+		return sprintf(self::DOCTRINE_NAMESPACE_CACHEKEY, $this->namespace);
+	}
+
+	/**
+	 * Namespace version
+	 *
+	 * @return string $namespaceVersion
+	 */
+	private function getNamespaceVersion()
+	{
+		if (null !== $this->namespaceVersion) {
+			return $this->namespaceVersion;
+		}
+
+		$namespaceCacheKey = $this->getNamespaceCacheKey();
+		$namespaceVersion = $this->doFetch($namespaceCacheKey);
+
+		if (false === $namespaceVersion) {
+			$namespaceVersion = 1;
+
+			$this->doSave($namespaceCacheKey, $namespaceVersion);
+		}
+
+		$this->namespaceVersion = $namespaceVersion;
+
+		return $this->namespaceVersion;
 	}
 }

@@ -23,6 +23,11 @@ class MemcachedProvider extends CacheProvider
 	 * @var Memcached
 	 */
 	private $memcached;
+	
+	private function getNamespacedId($id)
+	{
+		return $this->memcached->getNamespacedId( $id );
+	}
 
 	/**
 	 * Gets the memcached instance used by the cache.
