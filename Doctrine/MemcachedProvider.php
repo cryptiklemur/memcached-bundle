@@ -23,12 +23,39 @@ class MemcachedProvider extends CacheProvider
 	 * @var Memcached
 	 */
 	private $memcached;
-	
-	private function getNamespacedId($id)
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function fetch($id)
 	{
-		return $id; 
+		return $this->doFetch( $id );
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
+	public function contains($id)
+	{
+		return $this->doContains( $id );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function save($id, $data, $lifeTime = 0)
+	{
+		return $this->doSave( $id , $data, $lifeTime);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function delete($id)
+	{
+		return $this->doDelete( $id );
+	}
+	
 	/**
 	 * Gets the memcached instance used by the cache.
 	 *
