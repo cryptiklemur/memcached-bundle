@@ -6,7 +6,7 @@
  */
 namespace Aequasi\Bundle\MemcachedBundle\Doctrine;
 
-use \Aequasi\Bundle\MemcachedBundle\Cache\LoggingMemcachedInterface as Memcached;
+use \Aequasi\Bundle\MemcachedBundle\Cache\Memcached;
 
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\CacheProvider;
@@ -23,11 +23,6 @@ class MemcachedProvider extends CacheProvider
 	 * @var Memcached
 	 */
 	private $memcached;
-
-	/**
-	 * @var string prefix
-	 */
-	private $prefix;
 
 	/**
 	 * Gets the memcached instance used by the cache.
@@ -50,31 +45,11 @@ class MemcachedProvider extends CacheProvider
 	}
 
 	/**
-	 * Gets the prefix used by the cache.
-	 *
-	 * @return string
-	 */
-	public function getPrefix()
-	{
-		return $this->prefix;
-	}
-
-	/**
-	 * Sets the prefix to use.
-	 *
-	 * @param string $prefix
-	 */
-	public function setPrefix( $prefix )
-	{
-		$this->prefix = $prefix;
-	}
-
-	/**
 	 * {@inheritdoc}
 	 */
 	protected function doFetch( $id )
 	{
-		return $this->memcached->get( $this->prefix . $id );
+		return $this->memcached->get( $id );
 	}
 
 	/**
@@ -82,7 +57,7 @@ class MemcachedProvider extends CacheProvider
 	 */
 	protected function doContains( $id )
 	{
-		return (bool)$this->memcached->get( $this->prefix . $id );
+		return (bool)$this->memcached->get( $id );
 	}
 
 	/**
@@ -94,7 +69,7 @@ class MemcachedProvider extends CacheProvider
 			$lifeTime = time() + $lifeTime;
 		}
 
-		return $this->memcached->set( $this->prefix . $id, $data, (int)$lifeTime );
+		return $this->memcached->set( $id, $data, (int)$lifeTime );
 	}
 
 	/**
@@ -102,7 +77,7 @@ class MemcachedProvider extends CacheProvider
 	 */
 	protected function doDelete( $id )
 	{
-		return $this->memcached->delete( $this->prefix . $id );
+		return $this->memcached->delete( $id );
 	}
 
 	/**
