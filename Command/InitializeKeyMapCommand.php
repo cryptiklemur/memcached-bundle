@@ -68,7 +68,7 @@ INDEX (`insert_date`)
 SQL;
 			
 			$output->writeln( "Attempting to create `memcached_key_map` table" );
-			$connection->executeQuery( "DROP TABLE `memcached_key_map`;" );
+			$connection->executeQuery( "DROP TABLE IF EXISTS `memcached_key_map`;" );
 			$connection->executeQuery( $sql );
 
 		} catch( ServiceNotFoundException $e ) {
