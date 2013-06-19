@@ -47,8 +47,10 @@ class ClearCommand extends ContainerAwareCommand
 		try {
 			$memcached = $this->getContainer()->get( 'memcached.' . $cluster );
 			if( $input->getOption( 'clearAll' ) ) {
+				$output->writeln( "Attempting to flush the memcached cluster" );
 				$memcached->flush();
 			} else {
+				$output->writeln( "Attempting to flush the memcached cluster that belong to this app" );
 				if( !$memcached->hasPrefix() ) {
 					throw new \Exception( "Cannot clear a cluster that isn't using a prefix. Did you mean to --clearAll?" );
 				}

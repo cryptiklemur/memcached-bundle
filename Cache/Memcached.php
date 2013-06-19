@@ -263,7 +263,7 @@ class Memcached
 	 */
 	public function hasError()
 	{
-		return $this->memcached->getResultCode() !== Memcached::RES_SUCCESS;
+		return $this->memcached->getResultCode() !== \Memcached::RES_SUCCESS;
 	}
 
 	/**
