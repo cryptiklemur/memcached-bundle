@@ -41,7 +41,22 @@ Then add parameters (probably in config.yml) for your servers, and options
 aequasi_memcached:
     clusters:
         default:
-          - { host: localhost, port: 11211 }
+            persistent_id: cluser_1
+            hosts: %memcached.hosts%
+            options:
+                compression: true
+                libketama_compatible: true
+                connect_timeout: 50
+                recv_timeout: 500000
+                send_timeout: 500000
+                poll_timeout: 50
+                retry_timeout: 5
+                no_block: true
+                server_failure_limit: 7
+                tcp_no_delay: true
+            keyMap:
+                enabled: %memcached.keymap.enabled%
+                connection: default
 ```
 
 There are also options that you can specify above. You can get the list of options by running
