@@ -193,7 +193,7 @@ class AequasiMemcachedExtension extends Extension
 		$memcached->addMethodCall( 'addServers', array( $servers ) );
 	
 		if( !empty( $config[ 'prefix' ] ) ) {
-			$memcached->addMethodCall( 'setNamespace', $config[ 'prefix' ] );
+			$memcached->addMethodCall( 'setNamespace', array( $config[ 'prefix' ] ) );
 		}
 
 		// Get default memcached options
