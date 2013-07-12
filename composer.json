@@ -1,6 +1,5 @@
 {
 	"name":        "aequasi/memcached-bundle",
-	"version":     "1.5.1",
 	"type":        "library",
 	"description": "Memcached Bundle",
 	"keywords":    ["php", "memcached"],
