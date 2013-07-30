@@ -159,7 +159,7 @@ class AequasiMemcachedExtension extends Extension
 	private function newMemcachedClient( $name, array $config, ContainerBuilder $container )
 	{
 		// Check if the Memcached extension is loaded
-		if ( !extension_loaded( 'memcached' ) ) {
+		if ( !class_exists( 'Memcached' ) ) {
 			throw \Exception( 'Memcached extension is not loaded! To configure memcached clients it MUST be loaded!' );
 		}
 
