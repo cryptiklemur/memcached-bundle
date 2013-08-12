@@ -160,7 +160,7 @@ class AequasiMemcachedExtension extends Extension
 	{
 		// Check if the Memcached extension is loaded
 		if ( !class_exists( 'Memcached' ) ) {
-			throw \Exception( 'Memcached extension is not loaded! To configure memcached clients it MUST be loaded!' );
+			throw new \Exception( 'Memcached extension is not loaded! To configure memcached clients it MUST be loaded!' );
 		}
 
 		$memcached = new Definition( 'Aequasi\Bundle\MemcachedBundle\Cache\AntiStampedeMemcached' );
