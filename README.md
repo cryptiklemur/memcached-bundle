@@ -42,7 +42,8 @@ aequasi_memcached:
     clusters:
         default:
             persistent_id: cluser_1
-            hosts: %memcached.hosts%
+            hosts: memcached.hosts:
+              - { host: localhost, port: 11211, weight: 100 }
             options:
                 compression: true
                 libketama_compatible: true
