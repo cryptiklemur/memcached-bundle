@@ -141,11 +141,17 @@ There are also three commands (might add more later), for getting, setting, and 
 
 ```sh
 
-php app/console memcached:get key
+php app/console memcached:get cluster key
 
-php app/console memcached:set key value lifetime=60
+php app/console memcached:set cluster key value [lifetime=60]
 
-php app/console memcached:delete key
+php app/console memcached:delete cluster key
+
+php app/console memcached:clear [cluster] # If cluster is specified, might not clear all the keys for the cluster. Uses http://www.php.net/manual/en/memcached.getallkeys.php
+
+php app/console memcached:statistics cluster
+
+php app/console memcached:initialize:keymap cluster (required if using the keymap)
 
 ```
 
