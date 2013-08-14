@@ -62,7 +62,7 @@ aequasi_memcached:
 There are also options that you can specify above. You can get the list of options by running
 
 ```php
-php app/console config:dump memcached
+php app/console config:dump aequasi_memcached
 ```
 
 #### Doctrine
