@@ -41,6 +41,7 @@ Then add parameters (probably in config.yml) for your servers, and options
 aequasi_memcached:
     clusters:
         default:
+            prefix: 'result_' # Optional
             persistent_id: cluser_1
             hosts: memcached.hosts:
               - { host: localhost, port: 11211, weight: 100 }
@@ -82,7 +83,6 @@ aequasi_memcached:
         result:
             cluster: default
             entity_manager: [default, read]  # you may specify multiple entity_managers
-            prefix: "result_"                # you may specify a prefix for the entries
         query:
             cluster: default
             entity_manager: default
