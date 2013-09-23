@@ -30,7 +30,7 @@ Add the bundle to app/AppKernerl.php
 ```php
 $bundles(
     ...
-       new Aequasi\Bundle\MemcachedBundle\MemcachedBundle(),
+       new Aequasi\Bundle\MemcachedBundle\AequasiMemcachedBundle(),
     ...
 );
 ```
