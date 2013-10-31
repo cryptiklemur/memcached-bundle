@@ -99,7 +99,11 @@ class LoggingMemcached extends Memcached implements LoggingMemcachedInterface
 		}
 
 		if( in_array( $name, array( 'add', 'set' ) ) ) {
-			$this->addToKeyMap( $arguments[ 0 ], $arguments[ 1 ], $arguments[ 2 ] );
+			$this->addToKeyMap( 
+				$arguments[ 0 ], 
+				$arguments[ 1 ], 
+				isset( $arguments[ 2 ] ) ? $arguments[ 2 ] : null
+			);
 		}
 		if( $name == 'delete' ) {
 			$this->deleteFromKeyMap( $arguments[ 0 ] );
