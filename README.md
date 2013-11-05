@@ -22,7 +22,8 @@ Requires the php5-memcached extension (Works with amazons elasticache extension 
 ### To Install
 
 ```sh
-	composer.phar require aequasi/memcached-bundle 2.0.0
+	composer.phar require aequasi/memcached-bundle dev-master
+	// Replace dev master with what ever version you want
 ```
 
 Add the bundle to app/AppKernerl.php
@@ -43,7 +44,7 @@ aequasi_memcached:
         default:
             prefix: 'result_' # Optional
             persistent_id: cluser_1
-            hosts: memcached.hosts:
+            hosts: 
               - { host: localhost, port: 11211, weight: 100 }
             options:
                 compression: true
