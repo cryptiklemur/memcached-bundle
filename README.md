@@ -125,7 +125,7 @@ Anti Stampede does not guarantee that the dog pile will not occur. Restarting Me
 You can use the default memcached functions, doctrine's `useResultCache` and `useQueryCache`, or you can use the `cache` function. Heres an example
 
 ```php
-use Aequasi\Bundle\MemcachedBundle\Service\MemcachedService as Cache;
+use Aequasi\Bundle\MemcachedBundle\Cache\AntiStampedeMemcached as Cache;
 
 /** @var $em \Doctrine\ORM\EntityManager */
 $data = $this->get( 'memcached.default' )->cache(
