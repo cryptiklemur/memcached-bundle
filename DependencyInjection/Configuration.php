@@ -241,7 +241,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
 
 				->end()
-				->integerNode( 'distribution' )
+				->scalarNode( 'distribution' )
 					->info( "Specifies the method of distributing item keys to the servers. Currently supported methods are modulo and consistent hashing. Consistent hashing delivers better distribution and allows servers to be added to the cluster with minimal cache losses. Default: Memcached::DISTRIBUTION_MODULA" )
                     ->defaultValue( 'modula' )
                     ->validate()
