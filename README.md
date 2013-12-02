@@ -162,3 +162,7 @@ php app/console memcached:initialize:keymap cluster (required if using the keyma
 Create an issue if you've found a bug,
 
 or email me at aequasi@gmail.com
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/aequasi/memcached-bundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
