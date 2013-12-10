@@ -7,6 +7,16 @@ memcached-bundle [![Build Status](https://travis-ci.org/aequasi/memcached-bundle
 Moving forward, use the [`aequasi/cache-bundle`][99]
 
 
+
+
+
+
+
+
+
+
+## If you insist.....
+
 ### Memcached Bundle for Symfony 2
 
 Creates a service in Symfony 2 that can also be used with doctrines `result_cache_driver` and `query_cache_driver`.
