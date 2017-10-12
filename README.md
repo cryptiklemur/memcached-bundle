@@ -4,15 +4,7 @@ memcached-bundle [![Build Status](https://travis-ci.org/aequasi/memcached-bundle
 
 # THIS BUNDLE IS DEPRECATED
 
-Moving forward, use the [`aequasi/cache-bundle`][99]
-
-
-
-
-
-
-
-
+Moving forward, use the [`php-cache`](http://www.php-cache.com) library
 
 
 ## If you insist.....
