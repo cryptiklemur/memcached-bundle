@@ -505,7 +505,17 @@ class Memcached
 	{
 		$namespaceVersion  = $this->getNamespaceVersion();
 
-		return sprintf('%s[%s][%s]', $this->namespace, $id, $namespaceVersion);
+		if (is_array($id)) {
+			/*
+			 * If the id is an array, then we need to adjust all keys consistently. This
+			 * will recursively adjust all the keys to use the configured namespace values
+			 */
+			return array_map(function ($key) {
+			    return $this->getNamespacedId($key);
+			}, $id);
+		} else {
+			return sprintf('%s[%s][%s]', $this->namespace, $id, $namespaceVersion);	
+		}
 	}
 
 	/**
